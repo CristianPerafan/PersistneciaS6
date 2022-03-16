@@ -78,6 +78,12 @@ public class Billboards {
 		return out;
 	}
 	
+	public String toStringReport() {
+		String out = "";
+		out = " Billboard "+"< "+companyName+" >"+ "with area"+area+"\n";
+		return out;
+	}
+	
 	
 	
 	

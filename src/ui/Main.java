@@ -1,12 +1,10 @@
 package ui;
 
 import java.io.BufferedReader;
-import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
-import java.io.PrintWriter;
 import java.util.List;
 import java.util.Scanner;
 import exceptions.PersistenciaException;
@@ -81,6 +79,8 @@ public class Main {
 			break;
 		case 5:
 			generateReportDangerousness();
+			
+			 generateTxtReport(controller.getListBillboards());
 			break;
 		default:
 			System.out.println("No valid option");
@@ -282,7 +282,7 @@ public class Main {
 			for(int i = 0;i<billboards.size();i++) {
 				String str = billboards.get(i).toString();
 	            fw.write(str);
-	            if(i < billboards.size()-1)//This prevent creating a blank like at the end of the file**
+	            if(i < billboards.size()-1)
 	                fw.write("\n");
 			}
 			fw.close();
@@ -291,6 +291,48 @@ public class Main {
 			e.printStackTrace();
 		}
 		
+	}
+	
+	public void generateTxtReport(List<Billboards> billboard) {
+		File file = new File(".\\files\\report.txt");
+		
+		try {
+			FileWriter fw = new FileWriter(file);
+			
+			int count = 1;
+			boolean condicion = false;
+			
+			String out = "===========================\n";
+			fw.write(out);
+			
+			out = "DANGEROUS BILLBOARD REPORT\n";
+			fw.write(out);
+			
+			out = "===========================\n";
+			fw.write(out);
+			
+			out = "The dangerous billboard are:\n";
+			fw.write(out);
+					
+			for(int i = 0;i<billboard.size();i++) {
+				if(billboard.get(i).getArea()>= 200000) {
+					out = count+". "+billboard.get(i).toStringReport()+"\n";
+					fw.write(out);
+					count++;
+					condicion = true;
+				}
+			}
+			
+			if(condicion == false) {
+				out = "No dangerous billboards";
+				fw.write(out);
+			}
+			
+			fw.close();
+			
+		}catch(IOException e) {
+			e.printStackTrace();
+		}
 	}
 	
 	public void addABillboardToList(String [] parts) {
