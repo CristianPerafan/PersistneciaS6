@@ -47,6 +47,7 @@ public class Main {
 				"(2) Show billboards\n"+
 				"(3) Add a billboard\n"+
 				"(4) Save the information\n"+
+				"(5) Export report of dangerousness\n"+
 				"(0) Exit");
 		int menuOption = sc.nextInt();
 		sc.nextLine();
@@ -78,6 +79,9 @@ public class Main {
 			serializeBillboard(controller.getListBillboards());
 			System.out.println("The information has been saved!!!");
 			break;
+		case 5:
+			generateReportDangerousness();
+			break;
 		default:
 			System.out.println("No valid option");
 			break;
@@ -95,24 +99,27 @@ public class Main {
 				
 				while((line = reader.readLine())!= null) {
 					String[] parts = line.split("\\++");
-					
-					double width = Double.parseDouble(parts[0]);
-					double height = Double.parseDouble(parts[1]);
-					boolean state = true;
-					
-					if(parts[2].equals("false")) {
-						state = false;
+					if(parts.length == 4) {
+						double width = Double.parseDouble(parts[0]);
+						double height = Double.parseDouble(parts[1]);
+						boolean state = true;
+						
+						if(parts[2].equals("false")) {
+							state = false;
+						}
+						else if(parts[2].equals("true")) {
+							state = true;
+						}
+						
+						String company = parts[3];
+						
+						Billboards obj = new Billboards(width,height,state,company);
+						
+						controller.addABillboard(obj);
 					}
-					else if(parts[2].equals("true")) {
-						state = true;
-					}
 					
-					String company = parts[3];
-					
-					Billboards obj = new Billboards(width,height,state,company);
-					
-					controller.addABillboard(obj);
 				}
+				reader.close();
 			}
 			catch(Exception e) {
 				e.printStackTrace();
@@ -254,7 +261,7 @@ public class Main {
 		
 		
 		String input = sc.nextLine();
-		input = "200++300++true++Mister Wings";
+		
 		
 		String [] parts = input.split("\\++");
 	
@@ -303,6 +310,11 @@ public class Main {
 		Billboards obj = new Billboards(width,heigth,state,name);
 		
 		controller.addABillboard(obj);
+	}
+	
+	public void generateReportDangerousness() {
+		String out = controller.reportDangerousness();
+		System.out.println(out);
 	}
 
 
