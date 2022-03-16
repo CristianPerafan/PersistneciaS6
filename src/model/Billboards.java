@@ -68,9 +68,17 @@ public class Billboards {
 
 	@Override
 	public String toString() {
-		return "Billboards [height=" + height + ", width=" + width + ", state=" + state + ", companyName=" + companyName
-				+ ", area=" + area + "]";
+		String out = "";
+		
+		out += width+"++";
+		out += height+"++";
+		out += state+"++";
+		out += companyName;
+		
+		return out;
 	}
+	
+	
 	
 	
 

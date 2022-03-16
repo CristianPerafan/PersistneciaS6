@@ -1,10 +1,11 @@
 package model;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class InfrastructureController {
 	
-	private ArrayList<Billboards> billboards;
+	private List<Billboards> billboards;
 
 	public InfrastructureController(){
 		billboards = new ArrayList<Billboards>();
@@ -37,5 +38,15 @@ public class InfrastructureController {
 		
 		return out;
 	}
+	
+	public int getListSize() {
+		return billboards.size();
+	}
+	
+	public List<Billboards> getListBillboards(){
+		return billboards;
+	}
+	
+	
 
 }
